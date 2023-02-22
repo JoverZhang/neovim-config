@@ -138,12 +138,22 @@ return {
       init = function()
         local dap = require("dap")
 
+        -- adapters
+
         -- python
         dap.adapters.python = {
           type = "executable",
           command = "/usr/bin/python",
           args = { "-m", "debugpy.adapter" },
         }
+        -- cpp
+        dap.adapters["lldb-vscode"] = {
+          type = "executable",
+          command = "/usr/bin/lldb-vscode",
+        }
+
+        -- configurations
+
         dap.configurations.python = {
           {
             type = "python",
@@ -155,6 +165,21 @@ return {
             end,
           },
         }
+        dap.configurations.cpp = {
+          {
+            name = "Launch",
+            type = "lldb-vscode",
+            request = "launch",
+            program = function()
+              return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+            end,
+            cwd = "${workspaceFolder}",
+            stopOnEntry = false,
+            args = {},
+          },
+        }
+        dap.configurations.c = dap.configurations.cpp
+        dap.configurations.rust = dap.configurations.cpp
       end,
       keys = normalKeys,
     },
