@@ -5,6 +5,7 @@ return {
     ensure_installed = {
       "clangd",
       "cmakelang",
+      "rust-analyzer",
       "stylua",
       "shellcheck",
       "shfmt",
