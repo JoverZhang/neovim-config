@@ -1,46 +1,21 @@
 local utils = require("utils")
----core code
-local start
-local quit
-
-local normalKeys = {
-  {
-    "<leader>dds",
-    function()
-      start()
-    end,
-    desc = "Start nvim-dap debugging",
-  },
-  {
-    "<leader>ddb",
-    function()
-      require("dap").toggle_breakpoint()
-    end,
-    desc = "toggle_breakpoint",
-  },
-  {
-    "<leader>ddu",
-    function()
-      require("dapui").toggle()
-    end,
-    desc = "toggle nvim-dap-ui",
-  },
-}
 
 local debuggingKeys = {
   {
     "<leader><F5>",
     function()
-      quit()
+      require("dap").terminate()
+      require("dapui").close()
     end,
-    desc = "Quit nvim-dap debugging",
+    desc = "terminate nvim-dap debugging",
   },
   {
     "<F5>",
     function()
       require("dap").continue()
+      require("dapui").open()
     end,
-    desc = "continue",
+    desc = "start or continue",
   },
   {
     "<F17>",
@@ -101,13 +76,6 @@ local debuggingKeys = {
 
   -- ui
   {
-    "<leader>ddu",
-    function()
-      require("dapui").toggle()
-    end,
-    desc = "toggle nvim-dap-ui",
-  },
-  {
     "<leader>di",
     function()
       require("dapui").eval()
@@ -116,18 +84,35 @@ local debuggingKeys = {
   },
 }
 
-start = function()
-  require("dap").continue()
-  require("dapui").open()
-  utils.deleteKeys(normalKeys)
-  utils.mappingKeys(debuggingKeys)
-end
+local dapKeys = function()
+  local running = false
+  return {
+    {
+      "<leader>dds",
+      function()
+        if running then
+          -- stop
+          utils.deleteKeys(debuggingKeys)
+          running = false
+          print("=== debugger nvim-dap is Stopped ===")
+        else
+          -- start
+          utils.mappingKeys(debuggingKeys)
+          running = true
+          print("=== debugger nvim-dap is Started ===")
+        end
+      end,
 
-quit = function()
-  require("dap").terminate()
-  require("dapui").close()
-  utils.deleteKeys(debuggingKeys)
-  utils.mappingKeys(normalKeys)
+      desc = "Start nvim-dap debugging",
+    },
+    {
+      "<leader>ddu",
+      function()
+        require("dapui").toggle()
+      end,
+      desc = "toggle nvim-dap-ui",
+    },
+  }
 end
 
 return {
@@ -136,8 +121,11 @@ return {
     dependencies = {
       "mfussenegger/nvim-dap",
       init = function()
-        local dap = require("dap")
+        require("which-key").register({
+          ["<leader>dd"] = { name = "nvim-dap" },
+        })
 
+        local dap = require("dap")
         -- adapters
 
         -- python
@@ -165,6 +153,7 @@ return {
             end,
           },
         }
+
         dap.configurations.cpp = {
           {
             name = "Launch",
@@ -178,10 +167,12 @@ return {
             args = {},
           },
         }
+
         dap.configurations.c = dap.configurations.cpp
+
         dap.configurations.rust = dap.configurations.cpp
       end,
-      keys = normalKeys,
+      keys = dapKeys,
     },
     config = function()
       require("dapui").setup({
