@@ -1,4 +1,31 @@
 return {
+  -- mason
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "clangd",
+        "cmakelang",
+        "rust-analyzer",
+        "stylua",
+        "shellcheck",
+        "shfmt",
+        "flake8",
+      },
+    },
+  },
+  -- lspconfig
+  {
+    "neovim/nvim-lspconfig",
+    keys = {
+      { "ga", vim.lsp.buf.code_action, desc = "lsp code action" },
+      { "<leader>cw", vim.lsp.buf.document_symbol, desc = "list all symbols in the current buffer" },
+      { "<leader>cW", vim.lsp.buf.workspace_symbol, desc = "list all symbols in the current workspace" },
+      { "<leader>c[", vim.diagnostic.goto_prev, desc = "goto prev diagnostic" },
+      { "<leader>c]", vim.diagnostic.goto_next, desc = "goto next diagnostic" },
+    },
+  },
+
   -- pyright
   {
     "neovim/nvim-lspconfig",
@@ -19,11 +46,6 @@ return {
     dependencies = {
       "simrat39/rust-tools.nvim",
       init = function()
-        local function on_attach(client, buffer)
-          -- This callback is called when the LSP is atttached/enabled for this buffer
-          -- we could set keymaps related to LSP, etc here.
-        end
-
         require("rust-tools").setup({
           tools = {
             runnables = {
@@ -42,7 +64,10 @@ return {
           -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
           server = {
             -- on_attach is a callback called when the language server attachs to the buffer
-            on_attach = on_attach,
+            on_attach = function(client, buffer)
+              -- This callback is called when the LSP is atttached/enabled for this buffer
+              -- we could set keymaps related to LSP, etc here.
+            end,
             settings = {
               -- to enable rust-analyzer settings visit:
               -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
@@ -56,13 +81,6 @@ return {
           },
         })
       end,
-    },
-    keys = {
-      { "ga", vim.lsp.buf.code_action, desc = "lsp code action" },
-      { "<leader>cw", vim.lsp.buf.document_symbol, desc = "list all symbols in the current buffer" },
-      { "<leader>cW", vim.lsp.buf.workspace_symbol, desc = "list all symbols in the current workspace" },
-      { "<leader>c[", vim.diagnostic.goto_prev, desc = "goto prev diagnostic" },
-      { "<leader>c]", vim.diagnostic.goto_next, desc = "goto next diagnostic" },
     },
   },
 }
