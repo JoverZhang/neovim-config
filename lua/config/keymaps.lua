@@ -3,5 +3,6 @@
 -- Add any additional keymaps here
 
 require("which-key").register({
+  ["<localLeader>c"] = { name = "code" },
   ["<leader>d"] = { name = "debug" },
 })
