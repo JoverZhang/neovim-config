@@ -27,7 +27,7 @@ local debuggingKeys = {
   {
     "<F41>",
     function()
-      require("dap").restart()
+      require("dap").run_last()
     end,
     desc = "<C-S-F5> restart",
   },
@@ -82,6 +82,13 @@ local debuggingKeys = {
     end,
     desc = "Debug Inspect",
   },
+  {
+    "<leader>ddr",
+    function()
+      require("dapui").open({ reset = true })
+    end,
+    desc = "Reset nvim-dap-ui",
+  },
 }
 
 local dapKeys = function()
@@ -134,7 +141,7 @@ return {
           command = "/usr/bin/python",
           args = { "-m", "debugpy.adapter" },
         }
-        -- cpp
+        -- c, cpp, rust
         dap.adapters["lldb-vscode"] = {
           type = "executable",
           command = "/usr/bin/lldb-vscode",
@@ -172,6 +179,7 @@ return {
 
         dap.configurations.rust = dap.configurations.cpp
       end,
+
       keys = dapKeys,
     },
     config = function()
@@ -210,10 +218,10 @@ return {
             elements = {
               {
                 id = "scopes",
-                size = 0.25,
+                size = 0.35,
               },
               {
-                id = "breakpoints",
+                id = "watches",
                 size = 0.25,
               },
               {
@@ -221,8 +229,8 @@ return {
                 size = 0.25,
               },
               {
-                id = "watches",
-                size = 0.25,
+                id = "breakpoints",
+                size = 0.15,
               },
             },
             position = "left",
@@ -232,11 +240,11 @@ return {
             elements = {
               {
                 id = "repl",
-                size = 0.5,
+                size = 0.7,
               },
               {
                 id = "console",
-                size = 0.5,
+                size = 0.3,
               },
             },
             position = "bottom",
