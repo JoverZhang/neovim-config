@@ -46,14 +46,15 @@ return {
     dependencies = {
       "simrat39/rust-tools.nvim",
       init = function()
-        require("rust-tools").setup({
+        local rt = require("rust-tools")
+        rt.setup({
           tools = {
             runnables = {
               use_telescope = true,
             },
             inlay_hints = {
               auto = true,
-              show_parameter_hints = false,
+              show_parameter_hints = true,
               parameter_hints_prefix = "",
               other_hints_prefix = "",
             },
@@ -64,10 +65,23 @@ return {
           -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
           server = {
             -- on_attach is a callback called when the language server attachs to the buffer
-            on_attach = function(client, buffer)
-              -- This callback is called when the LSP is atttached/enabled for this buffer
-              -- we could set keymaps related to LSP, etc here.
+            on_attach = function(_, buffer)
+              -- Hover actions
+              vim.keymap.set(
+                "n",
+                "<LocalLeader>ch",
+                rt.hover_actions.hover_actions,
+                { desc = "hover actions (rust)", buffer = buffer }
+              )
+              -- Code action groups
+              vim.keymap.set(
+                "n",
+                "<LocalLeader>ca",
+                rt.code_action_group.code_action_group,
+                { desc = "code action group (rust)", buffer = buffer }
+              )
             end,
+
             settings = {
               -- to enable rust-analyzer settings visit:
               -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
