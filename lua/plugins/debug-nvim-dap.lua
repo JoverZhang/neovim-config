@@ -119,6 +119,13 @@ local dapKeys = function()
       end,
       desc = "toggle nvim-dap-ui",
     },
+    {
+      "<leader>ddr",
+      function()
+        require("dapui").open({ reset = true })
+      end,
+      desc = "Reset nvim-dap-ui",
+    },
   }
 end
 
