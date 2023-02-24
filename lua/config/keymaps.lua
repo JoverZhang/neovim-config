@@ -6,3 +6,8 @@ require("which-key").register({
   ["<localLeader>c"] = { name = "code" },
   ["<leader>d"] = { name = "debug" },
 })
+
+vim.keymap.set("n", "<leader>qc", function()
+  vim.cmd("cd %:p:h")
+  vim.notify("cwd change to: " .. vim.fn.getcwd())
+end, { desc = "Change cwd to here" })
