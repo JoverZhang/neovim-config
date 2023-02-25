@@ -9,6 +9,11 @@ local language_textwidths = {
   lua = 120,
   python = 80,
   rust = 120,
+
+  -- Markup language
+  text = 80,
+  json = 80,
+  markdown = 80,
 }
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
