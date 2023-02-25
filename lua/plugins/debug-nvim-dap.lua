@@ -1,6 +1,6 @@
 local utils = require("utils")
 
-local debuggingKeys = {
+local debugging_keys = {
   {
     "<leader><F5>",
     function()
@@ -91,7 +91,7 @@ local debuggingKeys = {
   },
 }
 
-local dapKeys = function()
+local dap_keys = function()
   local running = false
   return {
     {
@@ -99,12 +99,12 @@ local dapKeys = function()
       function()
         if running then
           -- stop
-          utils.deleteKeys(debuggingKeys)
+          utils.delete_keys(debugging_keys)
           running = false
           print("=== debugger nvim-dap is Stopped ===")
         else
           -- start
-          utils.mappingKeys(debuggingKeys)
+          utils.mapping_keys(debugging_keys)
           running = true
           print("=== debugger nvim-dap is Started ===")
         end
@@ -187,7 +187,7 @@ return {
         dap.configurations.rust = dap.configurations.cpp
       end,
 
-      keys = dapKeys,
+      keys = dap_keys,
     },
     config = function()
       require("dapui").setup({

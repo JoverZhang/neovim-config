@@ -1,6 +1,6 @@
 local utils = require("utils")
 
-local debuggingKeys = {
+local debugging_keys = {
   { "<leader><F5>", "<cmd>VimspectorReset<cr>", desc = "Quit vim-spector debugging" },
   { "<F5>", "<Plug>VimspectorContinue", desc = "Start or Continue" },
   { "<F17>", "<Plug>VimspectorStop", desc = "<S-F5> Stop debugging" },
@@ -36,12 +36,12 @@ return {
         function()
           if running then
             -- stop
-            utils.deleteKeys(debuggingKeys)
+            utils.delete_keys(debugging_keys)
             running = false
             print("=== debugger vim-spector is Stopped ===")
           else
             -- start
-            utils.mappingKeys(debuggingKeys)
+            utils.mapping_keys(debugging_keys)
             running = true
             print("=== debugger vim-spector is Started ===")
           end
