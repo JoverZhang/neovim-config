@@ -1,3 +1,7 @@
+-- persistent for nvim-dap breakpoints
+--
+-- see https://github.com/mfussenegger/nvim-dap/issues/198
+
 local breakpoints = require("dap.breakpoints")
 local BREAKPOINTS_FILE = os.getenv("HOME") .. "/.local/state/nvim/breakpoints.json"
 
