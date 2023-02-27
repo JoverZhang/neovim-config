@@ -10,4 +10,5 @@ require("which-key").register({
 vim.keymap.set("n", "<leader>qc", function()
   vim.cmd("cd %:p:h")
   vim.notify("cwd change to: " .. vim.fn.getcwd())
-end, { desc = "Change cwd to here" })
+  require("plugins.exts.sessions").load()
+end, { desc = "Change cwd and load session" })
