@@ -15,15 +15,7 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
 })
 
 function M.store_breakpoints(clear)
-  local fp = io.open(BREAKPOINTS_FILE, "r")
-  local bps
-  if fp ~= nil then
-    local load_bps_raw = fp:read("*a")
-    bps = vim.fn.json_decode(load_bps_raw)
-  else
-    bps = {}
-  end
-
+  local bps = {}
   local breakpoints_by_buf = breakpoints.get()
   if clear then
     for _, bufrn in ipairs(vim.api.nvim_list_bufs()) do
