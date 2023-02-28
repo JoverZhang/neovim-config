@@ -140,7 +140,6 @@ return {
         })
 
         local dap = require("dap")
-        -- adapters
 
         -- python
         dap.adapters.python = {
@@ -148,14 +147,6 @@ return {
           command = "/usr/bin/python",
           args = { "-m", "debugpy.adapter" },
         }
-        -- c, cpp, rust
-        dap.adapters["lldb-vscode"] = {
-          type = "executable",
-          command = "/usr/bin/lldb-vscode",
-        }
-
-        -- configurations
-
         dap.configurations.python = {
           {
             type = "python",
@@ -168,6 +159,11 @@ return {
           },
         }
 
+        -- c, cpp, rust
+        dap.adapters["lldb-vscode"] = {
+          type = "executable",
+          command = "/usr/bin/lldb-vscode",
+        }
         dap.configurations.cpp = {
           {
             name = "Launch",
@@ -185,6 +181,23 @@ return {
         dap.configurations.c = dap.configurations.cpp
 
         dap.configurations.rust = dap.configurations.cpp
+
+        -- go
+        dap.adapters.go = {
+          type = "executable",
+          command = "node",
+          args = { os.getenv("HOME") .. "/Workspace/sourcecode/github/vscode-go/dist/debugAdapter.js" },
+        }
+        dap.configurations.go = {
+          {
+            type = "go",
+            name = "Debug",
+            request = "launch",
+            showLog = false,
+            program = "${file}",
+            dlvToolPath = vim.fn.exepath("dlv"), -- Adjust to where delve is installed
+          },
+        }
       end,
 
       keys = dap_keys,
