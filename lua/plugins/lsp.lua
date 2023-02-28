@@ -119,6 +119,11 @@ return {
         test_dir = "",
         comment_placeholder = "   ",
         lsp_cfg = true, -- false: use your own lspconfig
+        -- TODO: fix go.nvim keymaps confiect
+        lsp_keymaps = true, -- true: use default keymaps defined in go/lsp.lua
+        lsp_inlay_hints = {
+          other_hints_prefix = "",
+        },
         lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
         lsp_on_attach = true, -- use on_attach from go.nvim
       })
