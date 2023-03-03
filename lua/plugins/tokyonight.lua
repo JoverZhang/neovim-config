@@ -20,7 +20,7 @@ return {
         end
 
         t = not t
-        vim.cmd("colorscheme tokyonight")
+        vim.cmd("colorscheme tokyonight-night")
       end,
       desc = "tokyonight to transparent",
     },
