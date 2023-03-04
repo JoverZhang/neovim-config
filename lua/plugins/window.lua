@@ -52,7 +52,7 @@ return {
           path = animate.gen_path.line(),
         },
         resize = {
-          enable = true,
+          enable = false,
           timing = animate.gen_timing.linear({ duration = 50, unit = "total" }),
         },
         scroll = {
