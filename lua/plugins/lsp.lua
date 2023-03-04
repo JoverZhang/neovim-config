@@ -21,7 +21,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
-      autoformat = false,
+      autoformat = true,
     },
     keys = {
       { "ga", vim.lsp.buf.code_action, desc = "lsp code action" },
