@@ -238,19 +238,19 @@ return {
             elements = {
               {
                 id = "scopes",
-                size = 0.35,
+                size = 0.5,
               },
               {
                 id = "watches",
-                size = 0.25,
+                size = 0.2,
               },
               {
                 id = "stacks",
-                size = 0.25,
+                size = 0.2,
               },
               {
                 id = "breakpoints",
-                size = 0.15,
+                size = 0.1,
               },
             },
             position = "left",
