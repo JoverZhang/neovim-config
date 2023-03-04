@@ -5,6 +5,7 @@
 require("which-key").register({
   ["<localLeader>c"] = { name = "code" },
   ["<leader>d"] = { name = "debug" },
+  ["<leader>t"] = { name = "terminal" },
 })
 
 vim.keymap.set("n", "<leader>qc", function()
