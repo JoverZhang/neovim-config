@@ -1,3 +1,4 @@
+-- vim.lsp.set_log_level("debug")
 return {
   -- mason
   {
@@ -14,6 +15,7 @@ return {
         "shellcheck",
         "shfmt",
         "flake8",
+        "yapf",
       },
     },
   },
@@ -130,6 +132,7 @@ return {
     },
   },
 
+  -- CMake
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -155,15 +158,25 @@ return {
     },
   },
 
-  -- pyright
+  -- Python
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "amirali/yapf.nvim",
+      config = function()
+        require("yapf").setup({})
+      end,
+    },
     ---@class PluginLspOpts
     opts = {
       ---@type lspconfig.options
       servers = {
         -- pyright will be automatically installed with mason and loaded with lspconfig
-        pyright = {},
+        pyright = {
+          on_attach = function(_, bufnr)
+            vim.keymap.set("n", "<leader>cf", "<cmd>Yapf<cr>", { buffer = bufnr, desc = "Python Yapf format" })
+          end,
+        },
       },
     },
   },
