@@ -13,3 +13,8 @@ vim.keymap.set("n", "<leader>qc", function()
   vim.notify("cwd change to: " .. vim.fn.getcwd())
   require("plugins.exts.sessions").load()
 end, { desc = "Change cwd and load session" })
+
+vim.keymap.set("n", "<leader>th", "<cmd>tabprevious<cr>", { desc = "tab previous" })
+vim.keymap.set("n", "<leader>tl", "<cmd>tabnext<cr>", { desc = "tab next" })
+vim.keymap.set("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "tab new" })
+vim.keymap.set("n", "<leader>td", "<cmd>tabclose<cr>", { desc = "tab close" })
