@@ -14,7 +14,7 @@ return {
   end,
   opts = {},
   keys = {
-    { "<leader>th", "<cmd>ToggleTermToggleAll<cr>", desc = "ToggleTermToggleAll" },
+    -- { "<leader>th", "<cmd>ToggleTermToggleAll<cr>", desc = "ToggleTermToggleAll" },
     { "<leader>ts", "<cmd>ToggleTerm 1 direction=horizontal<cr>", desc = "ToggleTerm horizontal" },
     { "<leader>t1", "<cmd>ToggleTerm 1 direction=horizontal<cr>", desc = "ToggleTerm 1" },
     { "<leader>t2", "<cmd>ToggleTerm 2 direction=horizontal<cr>", desc = "ToggleTerm 2" },
