@@ -208,6 +208,8 @@ return {
           server = {
             -- on_attach is a callback called when the language server attachs to the buffer
             on_attach = function(_, buffer)
+              -- RustRun
+              vim.keymap.set("n", "<LocalLeader>r", "<cmd>RustRun<cr>", { desc = "RustRun" })
               -- Hover actions
               vim.keymap.set(
                 "n",
