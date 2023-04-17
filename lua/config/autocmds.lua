@@ -2,6 +2,17 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
+-- autocmd BufNewFile,BufRead *.fmtmd set filetype=fmtmd
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "*.water",
+  callback = function(_)
+    vim.cmd("set filetype=rust")
+    vim.cmd("set tabstop=2")
+    vim.cmd("set shiftwidth=2")
+  end,
+})
+
 local language_textwidths = {
   c = 80,
   cpp = 120,
