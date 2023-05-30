@@ -19,9 +19,11 @@ return {
       "query",
       "regex",
       "rust",
+      "scss",
       "tsx",
       "typescript",
       "vim",
+      "vue",
       "yaml",
     },
     incremental_selection = {
