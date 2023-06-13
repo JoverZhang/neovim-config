@@ -285,6 +285,27 @@ return {
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
 
+  -- Java
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "mfussenegger/nvim-jdtls",
+    },
+    ---@class PluginLspOpts
+    opts = {
+      ---@type lspconfig.options
+      servers = {
+        jdtls = {
+          filetypes = { "java" },
+          single_file_support = true,
+          on_attach = function(_, bufnr)
+            vim.keymap.set("n", "<leader>cf", "<cmd>lua vim.lsp.buf.formatting()<cr>", { buffer = bufnr })
+          end,
+        },
+      },
+    },
+  },
+
   -- typescript
   {
     "neovim/nvim-lspconfig",
