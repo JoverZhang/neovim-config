@@ -299,7 +299,31 @@ return {
           filetypes = { "java" },
           single_file_support = true,
           on_attach = function(_, bufnr)
-            vim.keymap.set("n", "<leader>cf", "<cmd>lua vim.lsp.buf.formatting()<cr>", { buffer = bufnr })
+            -- TODO: fix here
+            require("jdtls").start_or_attach({
+              cmd = {
+                "jdtls",
+                "-javaHome",
+                os.getenv("JAVA_HOME"),
+                "-configuration",
+                os.getenv("HOME") .. "/.cache/jdtls/config",
+                "-data",
+                os.getenv("HOME") .. "/.cache/jdtls/workspace",
+              },
+              filetypes = { "java" },
+              on_attach = function(_, bufnr)
+                -- stylua: ignore
+                vim.keymap.set("n", "<LocalLeader>gd", "<cmd>lua vim.lsp.buf.definition()<cr>", { buffer = bufnr })
+                vim.keymap.set("n", "<leader>cf", "<cmd>lua vim.lsp.buf.formatting()<cr>", { buffer = bufnr })
+              end,
+              settings = {
+                java = {
+                  signatureHelp = { enabled = true },
+                  contentProvider = { preferred = "fernflower" },
+                  sources = { default = os.getenv("JAVA_HOME") .. "/src.zip" },
+                },
+              },
+            })
           end,
         },
       },
