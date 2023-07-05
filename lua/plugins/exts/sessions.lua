@@ -7,7 +7,7 @@ function M.load()
   require("plugins.exts.breakpoints").load_breakpoints()
 end
 
-function M.load_recent()
+function M.load_recent(save)
   local sessions = persistence.list()
   table.sort(sessions, function(a, b)
     return vim.loop.fs_stat(a).mtime.sec > vim.loop.fs_stat(b).mtime.sec
@@ -28,7 +28,9 @@ function M.load_recent()
     local session = sessions[index]
 
     -- switch session
-    persistence.save()
+    if save then
+      persistence.save()
+    end
     vim.cmd("silent! source " .. vim.fn.fnameescape(session))
 
     vim.notify("cwd change to: " .. vim.fn.getcwd())

@@ -16,7 +16,7 @@ end, { desc = "Change cwd and load session" })
 
 -- sessions
 vim.keymap.set("n", "<leader>qr", function()
-  require("plugins.exts.sessions").load_recent()
+  require("plugins.exts.sessions").load_recent(true)
 end, { desc = "Recent Session" })
 
 -- tab navigation
