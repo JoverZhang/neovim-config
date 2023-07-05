@@ -31,6 +31,8 @@ function M.load_recent(save)
     if save then
       persistence.save()
     end
+    vim.cmd("bufdo bd")
+    vim.cmd("LspRestart")
     vim.cmd("silent! source " .. vim.fn.fnameescape(session))
 
     vim.notify("cwd change to: " .. vim.fn.getcwd())
