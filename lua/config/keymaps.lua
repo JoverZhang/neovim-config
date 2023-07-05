@@ -18,3 +18,9 @@ vim.keymap.set("n", "<leader>th", "<cmd>tabprevious<cr>", { desc = "tab previous
 vim.keymap.set("n", "<leader>tl", "<cmd>tabnext<cr>", { desc = "tab next" })
 vim.keymap.set("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "tab new" })
 vim.keymap.set("n", "<leader>td", "<cmd>tabclose<cr>", { desc = "tab close" })
+
+-- use alt+{h,j,k,l} to move cursor in insert mode
+vim.keymap.set("i", "<A-h>", "<Left>", { noremap = false })
+vim.keymap.set("i", "<A-j>", "<Down>", { noremap = false })
+vim.keymap.set("i", "<A-k>", "<Up>", { noremap = false })
+vim.keymap.set("i", "<A-l>", "<Right>", { noremap = false })
