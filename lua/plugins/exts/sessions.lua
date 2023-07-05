@@ -15,7 +15,7 @@ function M.load_recent()
 
   local items = {}
   for i, session in ipairs(sessions) do
-    items[i] = i .. " " .. string.match(session, "^.+/(.+)$")
+    items[i] = i .. " " .. session:match("^.+/(.+)$"):gsub("%%", "/"):gsub(".vim$", "")
   end
 
   vim.ui.select(items, {
