@@ -199,6 +199,7 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "simrat39/rust-tools.nvim",
+      lazy = true,
       init = function()
         local rt = require("rust-tools")
         rt.setup({
