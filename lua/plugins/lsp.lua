@@ -33,6 +33,84 @@ return {
       { "<leader>c]", vim.diagnostic.goto_next, desc = "goto next diagnostic" },
     },
   },
+  {
+    "lvimuser/lsp-inlayhints.nvim",
+    branch = "anticonceal",
+    init = function()
+      require("lsp-inlayhints").setup({
+        inlay_hints = {
+          parameter_hints = {
+            show = true,
+            prefix = "<- ",
+            separator = ", ",
+            remove_colon_start = false,
+            remove_colon_end = true,
+          },
+          type_hints = {
+            show = true,
+            prefix = "",
+            separator = ", ",
+            remove_colon_start = true,
+            remove_colon_end = false,
+          },
+          label_formatter = function(tbl, kind, opts, client_name)
+            if kind == 2 and not opts.parameter_hints.show then
+              return ""
+            elseif not opts.type_hints.show then
+              return ""
+            end
+
+            return table.concat(tbl, ", ")
+          end,
+          virt_text_formatter = function(label, hint, opts, client_name)
+            if client_name == "sumneko_lua" or client_name == "lua_ls" then
+              if hint.kind == 2 then
+                hint.paddingLeft = false
+              else
+                hint.paddingRight = false
+              end
+            end
+
+            local vt = {}
+            vt[#vt + 1] = hint.paddingLeft and { " ", "None" } or nil
+            vt[#vt + 1] = { label, opts.highlight }
+            vt[#vt + 1] = hint.paddingRight and { " ", "None" } or nil
+
+            return vt
+          end,
+          only_current_line = false,
+          -- highlight group
+          highlight = "LspInlayHint",
+          -- virt_text priority
+          priority = 0,
+        },
+        enabled_at_startup = true,
+        debug_mode = false,
+      })
+
+      vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = "LspAttach_inlayhints",
+        callback = function(args)
+          if not (args.data and args.data.client_id) then
+            return
+          end
+
+          local bufnr = args.buf
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          require("lsp-inlayhints").on_attach(client, bufnr)
+          vim.diagnostic.config({
+            severity_sort = true,
+            underline = true,
+            signs = true,
+            virtual_text = false,
+            update_in_insert = false,
+            float = true,
+          })
+        end,
+      })
+    end,
+  },
 
   -- clangd
   {
@@ -75,7 +153,7 @@ return {
         extensions = {
           -- defaults:
           -- Automatically set inlay hints (type hints)
-          autoSetHints = true,
+          autoSetHints = false,
           -- These apply to the default ClangdSetInlayHints command
           inlay_hints = {
             -- Only show inlay hints for the current line
