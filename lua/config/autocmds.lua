@@ -38,15 +38,15 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 -- line number
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-  callback = function(opts)
-    if vim.cmd("set number?") == "number" then
+  callback = function()
+    if vim.o.number then
       vim.cmd("set norelativenumber")
     end
   end,
 })
 vim.api.nvim_create_autocmd({ "InsertLeave" }, {
   callback = function()
-    if vim.cmd("set number?") == "number" then
+    if vim.o.number then
       vim.cmd("set relativenumber")
     end
   end,
