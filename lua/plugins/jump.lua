@@ -10,8 +10,8 @@ return {
       return {
         { "f", "<cmd>:HopAnywhereAC<cr>", desc = "HopAnywereAC" },
         { "F", "<cmd>:HopAnywhereBC<cr>", desc = "HopAnywereBC" },
-        { "t", "<cmd>:HopAnywhereCurrentLineAC<cr>", desc = "HopAnywhereCurrentLineAC" },
-        { "T", "<cmd>:HopAnywhereCurrentLineBC<cr>", desc = "HopAnywhereCurrentLineBC" },
+        -- { "t", "<cmd>:HopAnywhereCurrentLineAC<cr>", desc = "HopAnywhereCurrentLineAC" },
+        -- { "T", "<cmd>:HopAnywhereCurrentLineBC<cr>", desc = "HopAnywhereCurrentLineBC" },
       }
     end,
   },
