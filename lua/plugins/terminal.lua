@@ -12,7 +12,19 @@ return {
     -- if you only want these mappings for toggle term use term://*toggleterm#* instead
     vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
   end,
-  opts = {},
+  opts = {
+    -- This field is only relevant if direction is set to 'float'
+    float_opts = {
+      border = "curved", -- | 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
+      width = vim.api.nvim_get_option("columns") * 2,
+      height = vim.api.nvim_get_option("lines") * 2,
+      winblend = 3,
+      highlights = {
+        border = "Normal",
+        background = "Normal",
+      },
+    },
+  },
   keys = {
     -- { "<leader>th", "<cmd>ToggleTermToggleAll<cr>", desc = "ToggleTermToggleAll" },
     { "<leader>ts", "<cmd>ToggleTerm 1 direction=horizontal<cr>", desc = "ToggleTerm horizontal" },
@@ -21,5 +33,7 @@ return {
     { "<leader>t3", "<cmd>ToggleTerm 3 direction=horizontal<cr>", desc = "ToggleTerm 3" },
     { "<leader>tv", "<cmd>ToggleTerm 10 direction=vertical<cr>", desc = "ToggleTerm vertical 10" },
     { "<leader>tf", "<cmd>ToggleTerm 11 direction=float<cr>", desc = "ToggleTerm float 11" },
+    { "t", "<cmd>ToggleTerm 21 direction=float<cr>", desc = "ToggleTerm float 21" },
+    { "T", "<cmd>ToggleTerm 22 direction=float<cr>", desc = "ToggleTerm float 22" },
   },
 }
