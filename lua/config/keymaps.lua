@@ -8,13 +8,11 @@ require("which-key").register({
   ["<leader>t"] = { name = "terminal" },
 })
 
+-- sessions
 vim.keymap.set("n", "<leader>qc", function()
   vim.cmd("cd %:p:h")
   vim.notify("cwd change to: " .. vim.fn.getcwd())
-  require("plugins.exts.sessions").load()
-end, { desc = "Change cwd and load session" })
-
--- sessions
+end, { desc = "Change cwd to current directory" })
 vim.keymap.set("n", "<leader>qr", function()
   require("plugins.exts.sessions").load_recent(true)
 end, { desc = "Recent Session" })
