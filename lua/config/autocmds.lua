@@ -4,15 +4,7 @@
 
 -- autocmd BufNewFile,BufRead *.fmtmd set filetype=fmtmd
 
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = "*.water",
-  callback = function(_)
-    vim.cmd("set filetype=rust")
-    vim.cmd("set tabstop=2")
-    vim.cmd("set shiftwidth=2")
-  end,
-})
-
+-- text with
 local language_textwidths = {
   c = 80,
   cpp = 120,
@@ -26,7 +18,6 @@ local language_textwidths = {
   json = 80,
   markdown = 80,
 }
-
 vim.api.nvim_create_autocmd({ "FileType" }, {
   callback = function(opts)
     local textwidth = language_textwidths[vim.bo[opts.buf].filetype]
@@ -36,7 +27,18 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
--- line number
+-- treesitter folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldenable = false
+-- vim.api.nvim_create_autocmd({ "BufReadPost", "FileReadPost" }, {
+--   pattern = "*",
+--   callback = function()
+--     vim.cmd("normal! zR")
+--   end,
+-- })
+
+--dynamic line number
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
   callback = function()
     if vim.o.number then
@@ -49,5 +51,15 @@ vim.api.nvim_create_autocmd({ "InsertLeave" }, {
     if vim.o.number then
       vim.cmd("set relativenumber")
     end
+  end,
+})
+
+-- for water
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "*.water",
+  callback = function(_)
+    vim.cmd("set filetype=rust")
+    vim.cmd("set tabstop=2")
+    vim.cmd("set shiftwidth=2")
   end,
 })
