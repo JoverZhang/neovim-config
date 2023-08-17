@@ -459,19 +459,6 @@ return {
   },
 
   -- Haskell
-  {
-    "neovim/nvim-lspconfig",
-    ---@class PluginLspOpts
-    opts = {
-      ---@type lspconfig.options
-      servers = {
-        hls = {
-          filetypes = { "haskell", "lhaskell", "cabal" },
-          single_file_support = true,
-        },
-      },
-    },
-  },
 
   --   "neovim/nvim-lspconfig",
   --   ---@class PluginLspOpts
