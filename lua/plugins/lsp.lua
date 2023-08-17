@@ -144,18 +144,6 @@ return {
               { buffer = buffer, desc = "ClangdTypeHierarchy" }
             )
           end,
-          cmd = {
-            "clangd",
-            "--offset-encoding=utf-16",
-            "--background-index",
-            "--clang-tidy",
-            "--completion-style=bundled",
-            "--cross-file-rename",
-            "--header-insertion=iwyu",
-            "--header-insertion-decorators",
-            "--suggest-missing-includes",
-            "--clang-tidy-checks=-*,bugprone-*,cert-*,clang-analyzer-*,cppcoreguidelines-*,misc-*,modernize-*,performance-*,portability-*,readability-*",
-          },
         },
         extensions = {
           -- defaults:
@@ -224,7 +212,20 @@ return {
     end,
     opts = {
       servers = {
-        clangd = {},
+        clangd = {
+          cmd = {
+            "clangd",
+            "--offset-encoding=utf-16",
+            "--background-index",
+            "--clang-tidy",
+            "--completion-style=bundled",
+            "--cross-file-rename",
+            "--header-insertion=iwyu",
+            "--header-insertion-decorators",
+            "--suggest-missing-includes",
+            "--clang-tidy-checks=-*,bugprone-*,cert-*,clang-analyzer-*,cppcoreguidelines-*,misc-*,modernize-*,performance-*,portability-*,readability-*",
+          },
+        },
       },
     },
   },
