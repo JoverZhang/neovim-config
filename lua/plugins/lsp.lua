@@ -9,6 +9,7 @@ return {
         "cmakelang",
         "golangci-lint",
         "goimports",
+        "neocmakelsp",
         "rust-analyzer",
         "stylua",
         "shellcheck",
