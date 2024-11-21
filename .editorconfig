@@ -1,3 +1,0 @@
-[*.lua]
-
-keep_line_after_function_define_statement = keepLine:2
