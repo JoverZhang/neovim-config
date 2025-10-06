@@ -1,3 +1,7 @@
+if true then
+  return {}
+end
+
 local utils = require("utils")
 
 local debugging_keys = {
