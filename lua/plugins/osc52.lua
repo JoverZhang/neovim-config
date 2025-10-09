@@ -1,0 +1,34 @@
+return {
+  "ojroques/nvim-osc52",
+  event = { "BufReadPost", "BufNewFile" },
+  config = function()
+    require("osc52").setup({
+      max_length = 0,
+      silent = true,
+      trim = false,
+    })
+
+    local function copy(lines, _)
+      require("osc52").copy(table.concat(lines, "\n"))
+    end
+    local paste = function()
+      return { vim.fn.split(vim.fn.getreg("+"), "\n") }, vim.fn.getregtype("+")
+    end
+
+    vim.g.clipboard = {
+      name = "osc52",
+      copy = { ["+"] = copy, ["*"] = copy },
+      paste = { ["+"] = paste, ["*"] = paste },
+    }
+
+    vim.api.nvim_create_autocmd("TextYankPost", {
+      callback = function()
+        if vim.v.event.operator == "y" and vim.v.event.regname == "" then
+          require("osc52").copy_register('"')
+        end
+      end,
+    })
+
+    vim.opt.clipboard = "unnamedplus"
+  end,
+}
