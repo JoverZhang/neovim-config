@@ -1,9 +1,9 @@
 return {
   {
     "mason-org/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "ruff",
+     opts = {
+      servers = {
+        pyright = {},
       },
     },
   },
