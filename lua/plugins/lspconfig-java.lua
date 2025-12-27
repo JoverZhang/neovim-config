@@ -5,6 +5,9 @@ return {
   dependencies = {
     {
       "nvim-java/nvim-java",
+      cond = function()
+        return vim.fn.executable("jdtls") == 1
+      end,
       config = function()
         -- Fix for lombok missing
         -- ln -s \
