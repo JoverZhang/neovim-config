@@ -1,10 +1,10 @@
-return {
+if vim.fn.executable("go") != 1 then
+   return {}
+end
 
+return {
   {
     "neovim/nvim-lspconfig",
-    cond = function()
-      return vim.fn.executable("go") == 1
-    end,
     opts = {
       servers = {
         gopls = {
@@ -69,9 +69,6 @@ return {
   },
   {
     "mason-org/mason.nvim",
-    cond = function()
-      return vim.fn.executable("go") == 1
-    end,
     opts = {
       ensure_installed = {
         "goimports",

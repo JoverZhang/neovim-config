@@ -1,13 +1,14 @@
-vim.g.debug_mode = true
+-- vim.g.debug_mode = true
+
+if vim.fn.executable("jdtls") ~= 1 then
+  return {}
+end
 
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
     {
       "nvim-java/nvim-java",
-      cond = function()
-        return vim.fn.executable("jdtls") == 1
-      end,
       config = function()
         -- Fix for lombok missing
         -- ln -s \
