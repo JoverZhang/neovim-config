@@ -1,4 +1,4 @@
-if vim.fn.executable("go") != 1 then
+if vim.fn.executable("go") ~= 1 then
    return {}
 end
 

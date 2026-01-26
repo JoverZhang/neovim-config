@@ -1,4 +1,4 @@
-if  vim.fn.executable("clang") != 1 then
+if vim.fn.executable("clang") ~= 1 then
   return {}
 end
 
